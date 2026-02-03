@@ -738,25 +738,24 @@
 
     <script>
         // Hero Glow Cursor Effect
-        const heroSection = document.getElementById('hero');
-        const heroGlow = document.getElementById('hero-glow');
-        
-        if (heroSection && heroGlow) {
-            heroSection.addEventListener('mousemove', (e) => {
-                const rect = heroSection.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                heroGlow.style.left = x + 'px';
-                heroGlow.style.top = y + 'px';
+        (function() {
+            const heroSec = document.getElementById('hero');
+            const heroGl = document.getElementById('hero-glow');
+            if (!heroSec || !heroGl) return;
+            
+            heroSec.addEventListener('mousemove', function(e) {
+                const rect = heroSec.getBoundingClientRect();
+                heroGl.style.left = (e.clientX - rect.left) + 'px';
+                heroGl.style.top = (e.clientY - rect.top) + 'px';
             });
             
-            heroSection.addEventListener('mouseleave', () => {
-                heroGlow.style.left = '50%';
-                heroGlow.style.top = '50%';
+            heroSec.addEventListener('mouseleave', function() {
+                heroGl.style.left = '50%';
+                heroGl.style.top = '50%';
             });
-        }
+        })();
 
-        // Footer Glow Cursor Effect - 1:1 wie Hero
+        // Footer Glow Cursor Effect
         (function() {
             const footerSec = document.getElementById('kontakt');
             const footerGl = document.getElementById('footer-glow');
