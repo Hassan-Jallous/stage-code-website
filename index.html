@@ -114,7 +114,7 @@
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(8px); }
         }
-        .hero-glow {
+        .hero-glow, .footer-glow {
             position: absolute;
             width: 600px;
             height: 600px;
@@ -123,7 +123,7 @@
             pointer-events: none;
             filter: blur(80px);
             transform: translate(-50%, -50%);
-            transition: opacity 0.3s ease;
+            transition: left 0.8s cubic-bezier(0.4, 0, 0.2, 1), top 0.8s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
             z-index: 0;
         }
         .image-hover {
@@ -699,6 +699,9 @@
 
     <!-- CTA Section -->
     <section id="kontakt" class="py-24 md:py-32 bg-burgundy relative overflow-hidden">
+        <!-- Interactive Footer Glow -->
+        <div id="footer-glow" class="footer-glow" style="left: 50%; top: 50%;"></div>
+        
         <div class="absolute inset-0">
             <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-moss/10 rounded-full filter blur-3xl transform translate-x-1/3 -translate-y-1/3"></div>
             <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-moss/5 rounded-full filter blur-3xl transform -translate-x-1/3 translate-y-1/3"></div>
@@ -754,6 +757,25 @@
             heroSection.addEventListener('mouseleave', () => {
                 heroGlow.style.left = '50%';
                 heroGlow.style.top = '50%';
+            });
+        }
+
+        // Footer Glow Cursor Effect
+        const footerSection = document.getElementById('kontakt');
+        const footerGlow = document.getElementById('footer-glow');
+        
+        if (footerSection && footerGlow) {
+            footerSection.addEventListener('mousemove', (e) => {
+                const rect = footerSection.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                footerGlow.style.left = x + 'px';
+                footerGlow.style.top = y + 'px';
+            });
+            
+            footerSection.addEventListener('mouseleave', () => {
+                footerGlow.style.left = '50%';
+                footerGlow.style.top = '50%';
             });
         }
 
