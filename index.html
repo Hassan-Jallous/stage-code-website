@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="de" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stage Code | Entertainment, das wirkt</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        burgundy: '#45171B',
+                        moss: '#AAAE8D',
+                        cream: '#F5F3F0',
+                    },
+                    fontFamily: {
+                        serif: ['Cormorant Garamond', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .gradient-overlay {
+            background: linear-gradient(to bottom, rgba(69, 23, 27, 0.7) 0%, rgba(69, 23, 27, 0.4) 50%, rgba(69, 23, 27, 0.9) 100%);
+        }
+        .text-shadow {
+            text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+        }
+        .fade-in {
+            animation: fadeIn 1s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .step-line::before {
+            content: '';
+            position: absolute;
+            left: 24px;
+            top: 60px;
+            bottom: -40px;
+            width: 2px;
+            background: #AAAE8D;
+        }
+        .step-item:last-child .step-line::before {
+            display: none;
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-800 bg-cream">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="text-2xl font-serif font-bold text-white tracking-wide">STAGE CODE</div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#problem" class="text-white/90 hover:text-moss transition-colors text-sm uppercase tracking-wider">Das Problem</a>
+                    <a href="#leistungen" class="text-white/90 hover:text-moss transition-colors text-sm uppercase tracking-wider">Leistungen</a>
+                    <a href="#prozess" class="text-white/90 hover:text-moss transition-colors text-sm uppercase tracking-wider">Methode</a>
+                    <a href="#kontakt" class="bg-moss text-burgundy px-6 py-2 rounded-full text-sm font-medium hover:bg-moss/90 transition-colors">Analyse buchen</a>
+                </div>
+                <button class="md:hidden text-white" id="mobile-menu-btn">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div class="hidden md:hidden bg-burgundy/95 backdrop-blur-md" id="mobile-menu">
+            <div class="px-6 py-4 space-y-4">
+                <a href="#problem" class="block text-white/90 hover:text-moss">Das Problem</a>
+                <a href="#leistungen" class="block text-white/90 hover:text-moss">Leistungen</a>
+                <a href="#prozess" class="block text-white/90 hover:text-moss">Methode</a>
+                <a href="#kontakt" class="block text-moss font-medium">Analyse buchen</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative h-screen min-h-[700px] flex items-center justify-center overflow-hidden">
+        <!-- Video Placeholder Background -->
+        <div class="absolute inset-0 bg-burgundy">
+            <div class="absolute inset-0 bg-gradient-to-br from-burgundy via-burgundy/90 to-black/60"></div>
+            <!-- Placeholder Pattern -->
+            <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(circle at 2px 2px, rgba(170,174,141,0.3) 1px, transparent 0); background-size: 40px 40px;"></div>
+        </div>
+        
+        <!-- Video Overlay Note -->
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl px-6 z-10">
+            <div class="border-2 border-dashed border-moss/40 rounded-lg p-12 text-center">
+                <div class="w-20 h-20 mx-auto mb-6 rounded-full border-2 border-moss/60 flex items-center justify-center">
+                    <svg class="w-8 h-8 text-moss" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M6.3 5.84a.75.75 0 011.06.02l3.858 4.5a.75.75 0 010 .98l-3.858 4.5A.75.75 0 016 15.5V5.75a.75.75 0 01.3-.91z"/>
+                    </svg>
+                </div>
+                <p class="text-moss/80 text-sm uppercase tracking-widest">Video folgt</p>
+                <p class="text-white/60 text-xs mt-2">Founder-Video wird hier eingefügt</p>
+            </div>
+        </div>
+
+        <!-- Hero Content -->
+        <div class="relative z-20 text-center px-6 max-w-5xl mx-auto">
+            <h1 class="font-serif text-4xl md:text-6xl lg:text-7xl text-white leading-tight mb-8 text-shadow">
+                Teures Entertainment ist nicht<br class="hidden md:block"/>
+                <span class="text-moss">automatisch gutes</span> Entertainment.
+            </h1>
+            <p class="text-xl md:text-2xl text-white/90 font-light max-w-3xl mx-auto leading-relaxed mb-4">
+                Wirkung entsteht nur, wenn es gesehen, gefühlt und erinnert wird.
+            </p>
+            <div class="mt-12 w-24 h-px bg-moss mx-auto"></div>
+            <p class="text-lg md:text-xl text-white/80 font-light max-w-2xl mx-auto leading-relaxed mt-12">
+                Wir entwickeln Entertainment-Konzepte für Events, die nicht einfach stattfinden – sondern etwas auslösen.
+            </p>
+            <p class="text-white/60 mt-4 text-base">
+                Vom einzelnen Walking Act bis zur kompletten Showinszenierung – so geplant, dass Momente entstehen, die bleiben.
+            </p>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <svg class="w-6 h-6 text-moss" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section id="problem" class="py-24 md:py-32 bg-white">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <span class="text-moss uppercase tracking-widest text-sm font-medium">Das Problem</span>
+            <h2 class="font-serif text-3xl md:text-5xl text-burgundy mt-4 mb-8 leading-tight">
+                Wenn Entertainment da war –<br/>aber niemand es wirklich erlebt hat
+            </h2>
+            
+            <div class="space-y-6 text-lg text-gray-600 leading-relaxed">
+                <p>
+                    Du hast Geld in Entertainment investiert. Vielleicht sogar viel Geld. Und trotzdem: Kaum jemand hat hingeschaut. Kaum jemand hat gefilmt.
+                </p>
+                <p>
+                    Am nächsten Tag gab es keine Bilder, keine Videos, kein Gespräch darüber. Das Event war vorbei – und vom Entertainment ist nichts geblieben.
+                </p>
+                <p class="text-burgundy font-medium">
+                    Dieses Gefühl ist unangenehm. Weil man weiß: Eigentlich hätte es besser sein müssen.
+                </p>
+                <p>
+                    Nicht, weil das Budget zu klein war. Sondern weil es nicht gepasst hat. Genau das passiert, wenn Entertainment „noch schnell mit dazu kommt“. Ohne klare Idee. Ohne Kontext. Ohne Timing.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Differentiation Section -->
+    <section class="py-20 bg-burgundy">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <span class="text-moss uppercase tracking-widest text-sm font-medium">Was wir anders machen</span>
+            <h2 class="font-serif text-3xl md:text-4xl text-white mt-4 leading-tight">
+                Entertainment kostet Geld. Und wenn man dieses Geld ausgibt, sollte es einen spürbaren Mehrwert haben.
+            </h2>
+            <p class="text-white/80 text-lg mt-6 leading-relaxed">
+                Nicht nur auf der Bühne. Sondern im Raum. In der Stimmung. Und in dem, was vom Event bleibt. Deshalb entwickeln wir Entertainment nicht isoliert, sondern immer im Zusammenhang mit dem Event.
+            </p>
+        </div>
+    </section>
+
+    <!-- Leistungen Section -->
+    <section id="leistungen" class="py-24 md:py-32 bg-cream">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="text-moss uppercase tracking-widest text-sm font-medium">Leistungen</span>
+                <h2 class="font-serif text-3xl md:text-5xl text-burgundy mt-4">Unsere drei Säulen</h2>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Künstler & Walking Acts -->
+                <div class="bg-white p-8 md:p-10 rounded-sm shadow-sm hover:shadow-lg transition-shadow duration-300 group">
+                    <div class="w-14 h-14 bg-burgundy/10 rounded-full flex items-center justify-center mb-6 group-hover:bg-burgundy transition-colors duration-300">
+                        <svg class="w-7 h-7 text-burgundy group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-serif text-2xl text-burgundy mb-4">Künstler & Walking Acts</h3>
+                    <p class="text-moss font-medium mb-4 text-sm uppercase tracking-wider">Gesehen werden ist kein Zufall.</p>
+                    <p class="text-gray-600 leading-relaxed">
+                        Ein guter Act allein reicht nicht. Entscheidend ist, wann, wo und wie er eingesetzt wird. Wir vermitteln Künstler, die wissen, wie man Teil eines Events wird – und nicht einfach darin untergeht.
+                    </p>
+                </div>
+
+                <!-- Show & Inszenierung -->
+                <div class="bg-white p-8 md:p-10 rounded-sm shadow-sm hover:shadow-lg transition-shadow duration-300 group">
+                    <div class="w-14 h-14 bg-burgundy/10 rounded-full flex items-center justify-center mb-6 group-hover:bg-burgundy transition-colors duration-300">
+                        <svg class="w-7 h-7 text-burgundy group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-serif text-2xl text-burgundy mb-4">Show & Inszenierung</h3>
+                    <p class="text-moss font-medium mb-4 text-sm uppercase tracking-wider">Wenn Entertainment tragen soll, braucht es eine Idee</p>
+                    <p class="text-gray-600 leading-relaxed">
+                        Große Shows scheitern nicht am Können. Sondern daran, dass sie keinen Platz im Event haben. Wir entwickeln Inszenierungen, die eingebettet sind: in den Ablauf, in die Marke und in die Aufmerksamkeit der Gäste.
+                    </p>
+                </div>
+
+                <!-- Betreuung -->
+                <div class="bg-white p-8 md:p-10 rounded-sm shadow-sm hover:shadow-lg transition-shadow duration-300 group">
+                    <div class="w-14 h-14 bg-burgundy/10 rounded-full flex items-center justify-center mb-6 group-hover:bg-burgundy transition-colors duration-300">
+                        <svg class="w-7 h-7 text-burgundy group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-serif text-2xl text-burgundy mb-4">Betreuung & Umsetzung</h3>
+                    <p class="text-moss font-medium mb-4 text-sm uppercase tracking-wider">Wirkung entsteht im Detail</p>
+                    <p class="text-gray-600 leading-relaxed">
+                        Selbst das beste Konzept verliert seine Kraft, wenn es vor Ort nicht sauber umgesetzt wird. Deshalb begleiten wir unsere Produktionen persönlich. Wir achten auf Timings, Übergänge und Stimmungen.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Prozess Section -->
+    <section id="prozess" class="py-24 md:py-32 bg-white">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="text-moss uppercase tracking-widest text-sm font-medium">Unsere Methode</span>
+                <h2 class="font-serif text-3xl md:text-5xl text-burgundy mt-4 mb-6">Wie wir arbeiten</h2>
+                <p class="text-gray-600 text-lg max-w-2xl mx-auto">
+                    Nichts ist frustrierender, als nach einem Event festzustellen, dass man viel investiert – aber wenig zurückbekommen hat. Deshalb arbeiten wir mit einer klaren Strategie. In fünf Schritten.
+                </p>
+            </div>
+
+            <div class="space-y-8">
+                <!-- Step 1 -->
+                <div class="step-item relative flex gap-6 md:gap-10">
+                    <div class="step-line flex-shrink-0 w-12 h-12 md:w-14 md:h-14 bg-burgundy rounded-full flex items-center justify-center text-white font-serif text-xl z-10">1</div>
+                    <div class="pb-8">
+                        <h3 class="font-serif text-2xl text-burgundy mb-3">Verstehen, was wirklich wichtig ist</h3>
+                        <p class="text-gray-600 leading-relaxed">
+                            Am Anfang geht es nicht um Künstler. Sondern um Fragen. Wer sind die Gäste? Was soll dieses Event auslösen? Was darf auf keinen Fall passieren? Erst wenn wir das verstehen, kann Entertainment überhaupt funktionieren.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="step-item relative flex gap-6 md:gap-10">
+                    <div class="step-line flex-shrink-0 w-12 h-12 md:w-14 md:h-14 bg-burgundy rounded-full flex items-center justify-center text-white font-serif text-xl z-10">2</div>
+                    <div class="pb-8">
+                        <h3 class="font-serif text-2xl text-burgundy mb-3">Ein Konzept, das Wirkung hat</h3>
+                        <p class="text-gray-600 leading-relaxed mb-3">
+                            Auf dieser Basis entwickeln wir eine klare Idee: Was passt? Was trägt den Moment? Und was bringt echten Mehrwert?
+                        </p>
+                        <p class="text-burgundy font-medium">Ihr bekommt: ein schlüssiges Entertainment-Konzept • passende Künstler-Vorschläge • eine transparente Budget- und Kostenübersicht</p>
+                        <p class="text-gray-500 text-sm mt-2 italic">Keine Optionsflut. Sondern eine klare Richtung.</p>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="step-item relative flex gap-6 md:gap-10">
+                    <div class="step-line flex-shrink-0 w-12 h-12 md:w-14 md:h-14 bg-burgundy rounded-full flex items-center justify-center text-white font-serif text-xl z-10">3</div>
+                    <div class="pb-8">
+                        <h3 class="font-serif text-2xl text-burgundy mb-3">Planung, die Sicherheit gibt</h3>
+                        <p class="text-gray-600 leading-relaxed mb-3">
+                            Jetzt wird aus der Idee Realität. Wir übernehmen:
+                        </p>
+                        <p class="text-burgundy font-medium">Künstlerbookings • Kostüm- & Stylingkonzepte • Choreografie & Musik • Ablauf- und Timingplanung</p>
+                        <p class="text-gray-500 text-sm mt-2 italic">Damit am Ende nichts improvisiert werden muss, was vorher hätte entschieden werden sollen.</p>
+                    </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="step-item relative flex gap-6 md:gap-10">
+                    <div class="step-line flex-shrink-0 w-12 h-12 md:w-14 md:h-14 bg-burgundy rounded-full flex items-center justify-center text-white font-serif text-xl z-10">4</div>
+                    <div class="pb-8">
+                        <h3 class="font-serif text-2xl text-burgundy mb-3">Präsenz am Eventtag</h3>
+                        <p class="text-gray-600 leading-relaxed">
+                            Am Eventtag sind wir da. Und achten auf das, was oft übersehen wird. Auf Übergänge. Auf Stimmungen. Auf den Moment, in dem Entertainment sichtbar wird. Damit das, was geplant wurde, auch wirklich wirkt.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Step 5 -->
+                <div class="step-item relative flex gap-6 md:gap-10">
+                    <div class="flex-shrink-0 w-12 h-12 md:w-14 md:h-14 bg-moss rounded-full flex items-center justify-center text-burgundy font-serif text-xl z-10">5</div>
+                    <div>
+                        <h3 class="font-serif text-2xl text-burgundy mb-3">Reflektieren & abschließen</h3>
+                        <p class="text-gray-600 leading-relaxed">
+                            Nach dem Event schauen wir gemeinsam zurück. Was hat funktioniert? Was hat Wirkung gezeigt? Was ist geblieben?
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-20 bg-burgundy">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white/5 backdrop-blur-sm p-8 rounded-sm border border-moss/20">
+                    <p class="text-white/90 italic leading-relaxed mb-6">„Endlich Entertainment, das wirklich zu unserem Event gepasst hat."</p>
+                    <p class="text-moss text-sm">— Marketing Manager, internationale Brand</p>
+                </div>
+                <div class="bg-white/5 backdrop-blur-sm p-8 rounded-sm border border-moss/20">
+                    <p class="text-white/90 italic leading-relaxed mb-6">„Die Zusammenarbeit war super entspannt – wir mussten uns um nichts kümmern."</p>
+                    <p class="text-moss text-sm">— Eventagentur, Berlin</p>
+                </div>
+                <div class="bg-white/5 backdrop-blur-sm p-8 rounded-sm border border-moss/20">
+                    <p class="text-white/90 italic leading-relaxed mb-6">„Sehr professionell, sehr gut organisiert – auf und hinter der Bühne."</p>
+                    <p class="text-moss text-sm">— Brand Event Lead</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Credentials Section -->
+    <section class="py-20 bg-cream">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <span class="text-moss uppercase tracking-widest text-sm font-medium">Erfahrung</span>
+            <h2 class="font-serif text-3xl md:text-4xl text-burgundy mt-4 mb-8">Bühnenerfahrung, die Vertrauen schafft</h2>
+            <p class="text-gray-600 text-lg leading-relaxed mb-6">
+                Ich komme selbst von der Bühne. Ich habe in Arenen mit <span class="text-burgundy font-medium">Peter Maffay</span> gearbeitet, mit <span class="text-burgundy font-medium">Diana Ross</span> und <span class="text-burgundy font-medium">Lionel Richie</span> getanzt und war Teil von Produktionen für internationale Brands wie <span class="text-burgundy font-medium">Mercedes-Benz, Porsche, Adidas</span> und <span class="text-burgundy font-medium">Nike</span>.
+            </p>
+            <p class="text-gray-600 leading-relaxed">
+                Von Videoproduktionen bis zu großen Bühnen- und Showproduktionen. Von Arenen bis zu Kreuzfahrtschiffen. Deshalb weiß ich, was hinter den Kulissen funktionieren muss, damit es vorne leicht wirkt.
+            </p>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="kontakt" class="py-24 md:py-32 bg-burgundy relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute top-0 right-0 w-96 h-96 bg-moss rounded-full filter blur-3xl transform translate-x-1/2 -translate-y-1/2"></div>
+            <div class="absolute bottom-0 left-0 w-96 h-96 bg-moss rounded-full filter blur-3xl transform -translate-x-1/2 translate-y-1/2"></div>
+        </div>
+        
+        <div class="max-w-3xl mx-auto px-6 text-center relative z-10">
+            <h2 class="font-serif text-3xl md:text-5xl text-white mb-6">Bereit für Entertainment, das wirkt?</h2>
+            <p class="text-white/80 text-lg mb-4 leading-relaxed">
+                Wenn du gerade ein Event planst und dir nicht sicher bist, welches Entertainment wirklich Sinn macht, dann starten wir mit einer unverbindlichen Eventanalyse.
+            </p>
+            <p class="text-moss text-lg mb-10">
+                Wir schauen gemeinsam: was dein Event braucht, was wirklich wirkt und wo man Geld sinnvoll einsetzen – oder auch sparen kann.
+            </p>
+            
+            <a href="mailto:kontakt@stagecode.de?subject=Unverbindliche%20Eventanalyse" class="inline-block bg-moss text-burgundy text-lg font-medium px-10 py-4 rounded-full hover:bg-white transition-colors duration-300 shadow-lg hover:shadow-xl">
+                Eventanalyse buchen
+            </a>
+            
+            <p class="text-white/50 text-sm mt-8">Oder schreib uns direkt an: <a href="mailto:kontakt@stagecode.de" class="text-moss hover:text-white transition-colors">kontakt@stagecode.de</a></p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-burgundy border-t border-white/10 py-12">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="text-2xl font-serif font-bold text-white tracking-wide">STAGE CODE</div>
+                <div class="text-white/50 text-sm">
+                    Entertainment, das wirkt.
+                </div>
+                <div class="text-white/40 text-sm">
+                    © 2026 Stage Code. Alle Rechte vorbehalten.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                navbar.classList.add('bg-burgundy/95', 'backdrop-blur-md', 'shadow-lg');
+            } else {
+                navbar.classList.remove('bg-burgundy/95', 'backdrop-blur-md', 'shadow-lg');
+            }
+        });
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    mobileMenu.classList.add('hidden');
+                }
+            });
+        });
+
+        // Fade in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section > div').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
