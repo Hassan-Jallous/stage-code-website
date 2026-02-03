@@ -114,6 +114,18 @@
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(8px); }
         }
+        .hero-glow {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(170,174,141,0.25) 0%, rgba(170,174,141,0.1) 30%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            filter: blur(80px);
+            transform: translate(-50%, -50%);
+            transition: opacity 0.3s ease;
+            z-index: 0;
+        }
         .image-hover {
             overflow: hidden;
         }
@@ -166,11 +178,14 @@
     </nav>
 
     <!-- Hero Section -->
-    <section class="relative min-h-screen bg-burgundy grain overflow-hidden">
+    <section id="hero" class="relative min-h-screen bg-burgundy grain overflow-hidden">
         <!-- Background Pattern -->
         <div class="absolute inset-0 opacity-30">
             <div class="absolute inset-0" style="background-image: radial-gradient(circle at 1px 1px, rgba(170,174,141,0.15) 1px, transparent 0); background-size: 50px 50px;"></div>
         </div>
+        
+        <!-- Interactive Glow Effect -->
+        <div id="hero-glow" class="hero-glow" style="left: 50%; top: 50%;"></div>
         
         <div class="relative z-10 flex flex-col justify-center min-h-screen px-6 pt-20">
             <div class="max-w-6xl mx-auto w-full">
@@ -723,7 +738,24 @@
     </footer>
 
     <script>
-        // Initialize Lucide icons
+        // Hero Glow Cursor Effect
+        const heroSection = document.getElementById('hero');
+        const heroGlow = document.getElementById('hero-glow');
+        
+        if (heroSection && heroGlow) {
+            heroSection.addEventListener('mousemove', (e) => {
+                const rect = heroSection.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                heroGlow.style.left = x + 'px';
+                heroGlow.style.top = y + 'px';
+            });
+            
+            heroSection.addEventListener('mouseleave', () => {
+                heroGlow.style.left = '50%';
+                heroGlow.style.top = '50%';
+            });
+        }
 
         // Navbar scroll effect
         const navbar = document.getElementById('navbar');
