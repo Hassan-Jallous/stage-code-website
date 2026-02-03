@@ -771,24 +771,23 @@
             });
         }
 
-        // Footer Glow Cursor Effect
-        const footerSection = document.getElementById('kontakt');
-        const footerGlow = document.getElementById('footer-glow');
-        
-        if (footerSection && footerGlow) {
-            footerSection.addEventListener('mousemove', (e) => {
-                const rect = footerSection.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                footerGlow.style.left = x + 'px';
-                footerGlow.style.top = y + 'px';
+        // Footer Glow Cursor Effect - 1:1 wie Hero
+        (function() {
+            const footerSec = document.getElementById('kontakt');
+            const footerGl = document.getElementById('footer-glow');
+            if (!footerSec || !footerGl) return;
+            
+            footerSec.addEventListener('mousemove', function(e) {
+                const rect = footerSec.getBoundingClientRect();
+                footerGl.style.left = (e.clientX - rect.left) + 'px';
+                footerGl.style.top = (e.clientY - rect.top) + 'px';
             });
             
-            footerSection.addEventListener('mouseleave', () => {
-                footerGlow.style.left = '50%';
-                footerGlow.style.top = '50%';
+            footerSec.addEventListener('mouseleave', function() {
+                footerGl.style.left = '50%';
+                footerGl.style.top = '50%';
             });
-        }
+        })();
 
         // Navbar scroll effect
         const navbar = document.getElementById('navbar');
