@@ -407,6 +407,23 @@
         .stagger-children.visible > *:nth-child(5) { transition-delay: 0.5s; opacity: 1; transform: translateY(0); }
         .stagger-children.visible > *:nth-child(6) { transition-delay: 0.6s; opacity: 1; transform: translateY(0); }
         
+        /* Quote float animation */
+        .quote-float {
+            animation: quoteFloat 3s ease-in-out infinite;
+        }
+        .quote-float-delay-1 {
+            animation: quoteFloat 3s ease-in-out infinite;
+            animation-delay: 0.5s;
+        }
+        .quote-float-delay-2 {
+            animation: quoteFloat 3s ease-in-out infinite;
+            animation-delay: 1s;
+        }
+        @keyframes quoteFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
         /* Breathing line animation */
         .line-breathe {
             animation: lineBreathe 2.5s ease-in-out infinite;
