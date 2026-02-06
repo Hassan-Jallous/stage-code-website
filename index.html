@@ -103,7 +103,7 @@
             position: absolute;
             left: 27px;
             top: 28px;
-            height: calc(100% - 200px);
+            height: 0; /* Set dynamically by JS */
             width: 4px;
             background: #d4d4c8;
             border-radius: 2px;
@@ -962,7 +962,7 @@
 
             <div class="roadmap-container relative" id="roadmap">
                 <!-- Track (background line) -->
-                <div class="roadmap-track"></div>
+                <div id="roadmap-track" class="roadmap-track"></div>
                 <!-- Fill (thermometer) -->
                 <div class="roadmap-fill" id="roadmap-fill"></div>
                 
@@ -1388,12 +1388,28 @@
         (function() {
             const roadmap = document.getElementById('roadmap');
             const fill = document.getElementById('roadmap-fill');
+            const track = document.getElementById('roadmap-track');
             const stepNumbers = document.querySelectorAll('.step-number');
             const finalCard = document.getElementById('final-step-card');
-            if (!roadmap || !fill) return;
+            if (!roadmap || !fill || !track) return;
 
             const celebratedSteps = new Set();
             let finalRevealed = false;
+
+            // Calculate and set track height dynamically
+            function updateTrackHeight() {
+                const firstStep = stepNumbers[0];
+                const lastStep = stepNumbers[stepNumbers.length - 1];
+                if (!firstStep || !lastStep) return;
+                
+                const firstRect = firstStep.getBoundingClientRect();
+                const lastRect = lastStep.getBoundingClientRect();
+                const roadmapRect = roadmap.getBoundingClientRect();
+                
+                // Track goes from center of first step to center of last step
+                const trackHeight = (lastRect.top + lastRect.height / 2) - (firstRect.top + firstRect.height / 2);
+                track.style.height = Math.max(0, trackHeight) + 'px';
+            }
 
             function updateRoadmap() {
                 const roadmapRect = roadmap.getBoundingClientRect();
@@ -1449,6 +1465,10 @@
             }
 
             window.addEventListener('scroll', updateRoadmap, { passive: true });
+            window.addEventListener('resize', updateTrackHeight);
+            
+            // Initial setup
+            updateTrackHeight();
             updateRoadmap();
         })();
 
