@@ -148,6 +148,91 @@
                 background-attachment: scroll;
             }
         }
+        
+        /* Problem Section Animations */
+        .problem-card {
+            transition: all 0.4s ease;
+        }
+        .problem-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .bar-animate {
+            width: 0;
+            transition: width 1.5s ease-out;
+        }
+        .bar-animate.visible {
+            width: 100%;
+        }
+        
+        .bar-gray {
+            animation: pulseGray 2s ease-in-out infinite;
+        }
+        @keyframes pulseGray {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+        
+        .success-card {
+            position: relative;
+            overflow: hidden;
+        }
+        .success-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(170,174,141,0.1), transparent);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) rotate(45deg); }
+        }
+        
+        .glow-pulse {
+            animation: glowPulse 2s ease-in-out infinite;
+        }
+        @keyframes glowPulse {
+            0%, 100% { box-shadow: 0 0 20px rgba(170,174,141,0.3); }
+            50% { box-shadow: 0 0 40px rgba(170,174,141,0.6); }
+        }
+        
+        .float-icon {
+            animation: floatIcon 3s ease-in-out infinite;
+        }
+        @keyframes floatIcon {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+        
+        .sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #AAAE8D;
+            border-radius: 50%;
+            opacity: 0;
+            animation: sparkle 2s ease-in-out infinite;
+        }
+        .sparkle:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
+        .sparkle:nth-child(2) { top: 60%; left: 80%; animation-delay: 0.5s; }
+        .sparkle:nth-child(3) { top: 80%; left: 30%; animation-delay: 1s; }
+        .sparkle:nth-child(4) { top: 30%; left: 70%; animation-delay: 1.5s; }
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: scale(0); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+        
+        .arrow-bounce {
+            animation: arrowBounce 1.5s ease-in-out infinite;
+        }
+        @keyframes arrowBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(8px); }
+        }
     </style>
 </head>
 <body class="font-sans text-gray-800 bg-cream overflow-x-hidden">
@@ -250,7 +335,7 @@
                         <div class="bg-gray-50 rounded-2xl p-4 md:p-8 lg:p-12 border border-gray-100">
                             <div class="space-y-6 md:space-y-8">
                                 <!-- Before -->
-                                <div class="bg-white rounded-xl p-4 md:p-6 border border-gray-200">
+                                <div class="problem-card bg-white rounded-xl p-4 md:p-6 border border-gray-200">
                                     <div class="flex items-center gap-4 mb-4">
                                         <div class="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center">
                                             <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"/></svg>
@@ -261,21 +346,27 @@
                                         </div>
                                     </div>
                                     <div class="flex gap-2">
-                                        <div class="h-2 bg-gray-300 rounded-full flex-1"></div>
-                                        <div class="h-2 bg-gray-300 rounded-full flex-1"></div>
-                                        <div class="h-2 bg-gray-300 rounded-full flex-1"></div>
+                                        <div class="h-2 bg-gray-300 rounded-full flex-1 bar-gray"></div>
+                                        <div class="h-2 bg-gray-300 rounded-full flex-1 bar-gray" style="animation-delay: 0.2s"></div>
+                                        <div class="h-2 bg-gray-300 rounded-full flex-1 bar-gray" style="animation-delay: 0.4s"></div>
                                     </div>
                                     <p class="text-gray-600 text-sm mt-3">Kaum Aufmerksamkeit • Keine Bilder • Keine Erinnerung</p>
                                 </div>
 
                                 <div class="flex justify-center">
-                                    <svg class="w-6 h-6 text-moss" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+                                    <svg class="w-6 h-6 text-moss arrow-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
                                 </div>
 
                                 <!-- After -->
-                                <div class="bg-burgundy rounded-xl p-4 md:p-6 text-white shadow-lg">
-                                    <div class="flex items-center gap-4 mb-4">
-                                        <div class="w-12 h-12 rounded-full bg-moss/30 flex items-center justify-center flex-shrink-0">
+                                <div class="success-card problem-card bg-burgundy rounded-xl p-4 md:p-6 text-white shadow-lg glow-pulse relative">
+                                    <!-- Sparkles -->
+                                    <div class="sparkle"></div>
+                                    <div class="sparkle"></div>
+                                    <div class="sparkle"></div>
+                                    <div class="sparkle"></div>
+                                    
+                                    <div class="flex items-center gap-4 mb-4 relative z-10">
+                                        <div class="w-12 h-12 rounded-full bg-moss/30 flex items-center justify-center flex-shrink-0 float-icon">
                                             <svg class="w-6 h-6 text-moss" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
                                         </div>
                                         <div>
@@ -283,12 +374,12 @@
                                             <p class="font-serif text-lg md:text-xl">„Das Entertainment war DER Moment des Abends"</p>
                                         </div>
                                     </div>
-                                    <div class="flex gap-2">
-                                        <div class="h-2 bg-moss rounded-full flex-1"></div>
-                                        <div class="h-2 bg-moss rounded-full flex-1"></div>
-                                        <div class="h-2 bg-moss rounded-full flex-1"></div>
+                                    <div class="flex gap-2 relative z-10">
+                                        <div class="h-2 bg-moss rounded-full flex-1 bar-animate" id="bar1"></div>
+                                        <div class="h-2 bg-moss rounded-full flex-1 bar-animate" id="bar2" style="transition-delay: 0.2s"></div>
+                                        <div class="h-2 bg-moss rounded-full flex-1 bar-animate" id="bar3" style="transition-delay: 0.4s"></div>
                                     </div>
-                                    <p class="text-white/90 text-sm mt-3">Volle Aufmerksamkeit • Handy-Videos überall • Redet man noch drüber</p>
+                                    <p class="text-white/90 text-sm mt-3 relative z-10">Volle Aufmerksamkeit • Handy-Videos überall • Redet man noch drüber</p>
                                 </div>
                             </div>
                         </div>
@@ -811,6 +902,23 @@
         document.querySelectorAll('.fade-up').forEach(el => {
             observer.observe(el);
         });
+
+        // Animate progress bars when Problem section is visible
+        const barObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    document.querySelectorAll('.bar-animate').forEach(bar => {
+                        bar.classList.add('visible');
+                    });
+                    barObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        const successCard = document.querySelector('.success-card');
+        if (successCard) {
+            barObserver.observe(successCard);
+        }
     </script>
 </body>
 </html>
