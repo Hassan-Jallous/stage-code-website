@@ -95,17 +95,109 @@
             background: rgba(170,174,141,1);
             box-shadow: 0 0 40px rgba(170,174,141,0.4);
         }
-        .step-connector {
+        /* Roadmap Thermometer */
+        .roadmap-container {
+            position: relative;
+        }
+        .roadmap-track {
             position: absolute;
-            left: 28px;
-            top: 56px;
-            bottom: -24px;
-            width: 2px;
-            background: linear-gradient(to bottom, #AAAE8D, rgba(170,174,141,0.3));
+            left: 27px;
+            top: 28px;
+            bottom: 28px;
+            width: 4px;
+            background: #d4d4c8;
+            border-radius: 2px;
+            z-index: 1;
         }
-        .step-item:last-child .step-connector {
-            display: none;
+        .roadmap-fill {
+            position: absolute;
+            left: 27px;
+            top: 28px;
+            width: 4px;
+            height: 0%;
+            background: linear-gradient(to bottom, #45171B, #5a1f24);
+            border-radius: 2px;
+            z-index: 2;
+            transition: height 0.1s ease-out;
         }
+        .step-item {
+            position: relative;
+            z-index: 3;
+        }
+        .step-number {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            background: #d4d4c8;
+            color: #666;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .step-number.filled {
+            background: #45171B;
+            color: white;
+            transform: scale(1.1);
+        }
+        .step-number.celebrated {
+            animation: celebrate 0.6s ease-out;
+        }
+        @keyframes celebrate {
+            0% { transform: scale(1.1); box-shadow: 0 0 0 0 rgba(69,23,27,0.7); }
+            50% { transform: scale(1.2); box-shadow: 0 0 0 20px rgba(69,23,27,0); }
+            100% { transform: scale(1.1); box-shadow: 0 0 0 0 rgba(69,23,27,0); }
+        }
+        .step-number.filled::after {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 20px;
+            background: linear-gradient(45deg, rgba(170,174,141,0.5), rgba(69,23,27,0.5));
+            z-index: -1;
+            opacity: 0;
+            animation: glowRing 2s ease-in-out infinite;
+        }
+        @keyframes glowRing {
+            0%, 100% { opacity: 0; transform: scale(0.9); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+        .step-sparkle {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0;
+        }
+        .step-number.celebrated .step-sparkle {
+            animation: sparkleShow 0.8s ease-out;
+        }
+        @keyframes sparkleShow {
+            0% { opacity: 1; transform: scale(0.5); }
+            100% { opacity: 0; transform: scale(2); }
+        }
+        .sparkle-dot {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: #AAAE8D;
+            border-radius: 50%;
+        }
+        .sparkle-dot:nth-child(1) { top: -10px; left: 50%; }
+        .sparkle-dot:nth-child(2) { top: 50%; right: -10px; }
+        .sparkle-dot:nth-child(3) { bottom: -10px; left: 50%; }
+        .sparkle-dot:nth-child(4) { top: 50%; left: -10px; }
+        .sparkle-dot:nth-child(5) { top: 0; right: 0; }
+        .sparkle-dot:nth-child(6) { bottom: 0; right: 0; }
+        .sparkle-dot:nth-child(7) { bottom: 0; left: 0; }
+        .sparkle-dot:nth-child(8) { top: 0; left: 0; }
         .bounce-link {
             animation: bounceLink 2s ease-in-out infinite;
             display: inline-flex;
@@ -630,11 +722,27 @@
                 </p>
             </div>
 
-            <div class="relative">
+            <div class="roadmap-container relative" id="roadmap">
+                <!-- Track (background line) -->
+                <div class="roadmap-track"></div>
+                <!-- Fill (thermometer) -->
+                <div class="roadmap-fill" id="roadmap-fill"></div>
+                
                 <!-- Step 1 -->
-                <div class="step-item relative pl-20 pb-16 fade-up">
-                    <div class="step-connector"></div>
-                    <div class="absolute left-0 top-0 w-14 h-14 bg-burgundy rounded-2xl flex items-center justify-center text-white font-serif text-2xl shadow-lg">1</div>
+                <div class="step-item relative pl-20 pb-16 fade-up" data-step="1">
+                    <div class="step-number" data-step-num="1">
+                        1
+                        <div class="step-sparkle">
+                            <div class="sparkle-dot"></div>
+                            <div class="sparkle-dot"></div>
+                            <div class="sparkle-dot"></div>
+                            <div class="sparkle-dot"></div>
+                            <div class="sparkle-dot"></div>
+                            <div class="sparkle-dot"></div>
+                            <div class="sparkle-dot"></div>
+                            <div class="sparkle-dot"></div>
+                        </div>
+                    </div>
                     
                     <div class="bg-cream rounded-2xl p-8 md:p-10">
                         <h3 class="font-serif text-2xl text-burgundy mb-3">Verstehen, was wirklich wichtig ist</h3>
@@ -645,9 +753,20 @@
                 </div>
 
                 <!-- Step 2 -->
-                <div class="step-item relative pl-20 pb-16 fade-up">
-                    <div class="step-connector"></div>
-                    <div class="absolute left-0 top-0 w-14 h-14 bg-burgundy rounded-2xl flex items-center justify-center text-white font-serif text-2xl shadow-lg">2</div>
+                <div class="step-item relative pl-20 pb-16 fade-up" data-step="2">
+                    <div class="step-number" data-step-num="2">
+                        2
+                        <div class="step-sparkle">
+                            <div class="sparkle-dot"></div>
+                            <div class="sparkle-dot"></div>
+                            <div class="sparkle-dot"></div>
+                            <div class="sparkle-dot"></div>
+                            <div class="sparkle-dot"></div>
+                            <div class="sparkle-dot"></div>
+                            <div class="sparkle-dot"></div>
+                            <div class="sparkle-dot"></div>
+                        </div>
+                    </div>
                     
                     <div class="bg-cream rounded-2xl p-8 md:p-10">
                         <h3 class="font-serif text-2xl text-burgundy mb-3">Ein Konzept, das Wirkung hat</h3>
@@ -666,9 +785,20 @@
                 </div>
 
                 <!-- Step 3 -->
-                <div class="step-item relative pl-20 pb-16 fade-up">
-                    <div class="step-connector"></div>
-                    <div class="absolute left-0 top-0 w-14 h-14 bg-burgundy rounded-2xl flex items-center justify-center text-white font-serif text-2xl shadow-lg">3</div>
+                <div class="step-item relative pl-20 pb-16 fade-up" data-step="3">
+                    <div class="step-number" data-step-num="3">
+                        3
+                        <div class="step-sparkle">
+                            <div class="sparkle-dot"></div>
+                            <div class="sparkle-dot"></div>
+                            <div class="sparkle-dot"></div>
+                            <div class="sparkle-dot"></div>
+                            <div class="sparkle-dot"></div>
+                            <div class="sparkle-dot"></div>
+                            <div class="sparkle-dot"></div>
+                            <div class="sparkle-dot"></div>
+                        </div>
+                    </div>
                     
                     <div class="bg-cream rounded-2xl p-8 md:p-10">
                         <h3 class="font-serif text-2xl text-burgundy mb-3">Planung, die Sicherheit gibt</h3>
@@ -697,9 +827,20 @@
                 </div>
 
                 <!-- Step 4 -->
-                <div class="step-item relative pl-20 pb-16 fade-up">
-                    <div class="step-connector"></div>
-                    <div class="absolute left-0 top-0 w-14 h-14 bg-burgundy rounded-2xl flex items-center justify-center text-white font-serif text-2xl shadow-lg">4</div>
+                <div class="step-item relative pl-20 pb-16 fade-up" data-step="4">
+                    <div class="step-number" data-step-num="4">
+                        4
+                        <div class="step-sparkle">
+                            <div class="sparkle-dot"></div>
+                            <div class="sparkle-dot"></div>
+                            <div class="sparkle-dot"></div>
+                            <div class="sparkle-dot"></div>
+                            <div class="sparkle-dot"></div>
+                            <div class="sparkle-dot"></div>
+                            <div class="sparkle-dot"></div>
+                            <div class="sparkle-dot"></div>
+                        </div>
+                    </div>
                     
                     <div class="bg-cream rounded-2xl p-8 md:p-10">
                         <h3 class="font-serif text-2xl text-burgundy mb-3">Präsenz am Eventtag</h3>
@@ -710,8 +851,20 @@
                 </div>
 
                 <!-- Step 5 -->
-                <div class="step-item relative pl-20 fade-up">
-                    <div class="absolute left-0 top-0 w-14 h-14 bg-moss rounded-2xl flex items-center justify-center text-burgundy font-serif text-2xl shadow-lg">5</div>
+                <div class="step-item relative pl-20 fade-up" data-step="5">
+                    <div class="step-number" data-step-num="5">
+                        5
+                        <div class="step-sparkle">
+                            <div class="sparkle-dot"></div>
+                            <div class="sparkle-dot"></div>
+                            <div class="sparkle-dot"></div>
+                            <div class="sparkle-dot"></div>
+                            <div class="sparkle-dot"></div>
+                            <div class="sparkle-dot"></div>
+                            <div class="sparkle-dot"></div>
+                            <div class="sparkle-dot"></div>
+                        </div>
+                    </div>
                     
                     <div class="bg-burgundy rounded-2xl p-8 md:p-10 text-white">
                         <h3 class="font-serif text-2xl mb-3">Reflektieren & abschließen</h3>
@@ -976,6 +1129,55 @@
         if (successCard) {
             barObserver.observe(successCard);
         }
+
+        // Roadmap Thermometer Animation
+        (function() {
+            const roadmap = document.getElementById('roadmap');
+            const fill = document.getElementById('roadmap-fill');
+            const stepNumbers = document.querySelectorAll('.step-number');
+            if (!roadmap || !fill) return;
+
+            const celebratedSteps = new Set();
+
+            function updateRoadmap() {
+                const roadmapRect = roadmap.getBoundingClientRect();
+                const viewportCenter = window.innerHeight * 0.5;
+                
+                // Calculate fill percentage based on scroll
+                const roadmapTop = roadmapRect.top;
+                const roadmapHeight = roadmapRect.height;
+                const scrollProgress = (viewportCenter - roadmapTop) / roadmapHeight;
+                const fillPercent = Math.max(0, Math.min(100, scrollProgress * 100));
+                
+                fill.style.height = fillPercent + '%';
+                
+                // Update step numbers
+                stepNumbers.forEach((stepNum, index) => {
+                    const stepRect = stepNum.getBoundingClientRect();
+                    const stepCenter = stepRect.top + stepRect.height / 2;
+                    const stepNum_num = index + 1;
+                    
+                    if (stepCenter < viewportCenter + 50) {
+                        stepNum.classList.add('filled');
+                        
+                        // Celebrate once
+                        if (!celebratedSteps.has(stepNum_num) && stepCenter < viewportCenter) {
+                            celebratedSteps.add(stepNum_num);
+                            stepNum.classList.add('celebrated');
+                            setTimeout(() => {
+                                stepNum.classList.remove('celebrated');
+                            }, 600);
+                        }
+                    } else {
+                        stepNum.classList.remove('filled');
+                        celebratedSteps.delete(stepNum_num);
+                    }
+                });
+            }
+
+            window.addEventListener('scroll', updateRoadmap, { passive: true });
+            updateRoadmap();
+        })();
     </script>
 </body>
 </html>
