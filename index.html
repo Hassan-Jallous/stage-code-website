@@ -103,7 +103,7 @@
             position: absolute;
             left: 27px;
             top: 28px;
-            bottom: 28px;
+            bottom: 80px;
             width: 4px;
             background: #d4d4c8;
             border-radius: 2px;
@@ -114,7 +114,8 @@
             left: 27px;
             top: 28px;
             width: 4px;
-            height: 0%;
+            height: 0px;
+            max-height: calc(100% - 108px);
             background: linear-gradient(to bottom, #45171B, #5a1f24);
             border-radius: 2px;
             z-index: 2;
@@ -198,6 +199,44 @@
         .sparkle-dot:nth-child(6) { bottom: 0; right: 0; }
         .sparkle-dot:nth-child(7) { bottom: 0; left: 0; }
         .sparkle-dot:nth-child(8) { top: 0; left: 0; }
+        
+        /* Final step card diagonal fill */
+        .final-step-card {
+            position: relative;
+            overflow: hidden;
+            background: #F5F3F0 !important;
+            color: #45171B !important;
+        }
+        .final-step-card h3,
+        .final-step-card p {
+            position: relative;
+            z-index: 2;
+            transition: color 0.5s ease;
+        }
+        .final-step-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 200%;
+            height: 100%;
+            background: linear-gradient(135deg, #45171B 50%, transparent 50%);
+            transform: translateX(-100%);
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1;
+        }
+        .final-step-card.revealed::before {
+            transform: translateX(0);
+        }
+        .final-step-card.revealed {
+            color: white !important;
+        }
+        .final-step-card.revealed h3 {
+            color: white;
+        }
+        .final-step-card.revealed p {
+            color: rgba(255,255,255,0.8);
+        }
         .bounce-link {
             animation: bounceLink 2s ease-in-out infinite;
             display: inline-flex;
@@ -866,9 +905,9 @@
                         </div>
                     </div>
                     
-                    <div class="bg-burgundy rounded-2xl p-8 md:p-10 text-white">
+                    <div class="final-step-card rounded-2xl p-8 md:p-10" id="final-step-card">
                         <h3 class="font-serif text-2xl mb-3">Reflektieren & abschließen</h3>
-                        <p class="text-white/80 leading-relaxed">
+                        <p class="leading-relaxed">
                             Nach dem Event schauen wir gemeinsam zurück. Was hat funktioniert? Was hat Wirkung gezeigt? Was ist geblieben?
                         </p>
                     </div>
@@ -1138,21 +1177,26 @@
             const roadmap = document.getElementById('roadmap');
             const fill = document.getElementById('roadmap-fill');
             const stepNumbers = document.querySelectorAll('.step-number');
+            const finalCard = document.getElementById('final-step-card');
             if (!roadmap || !fill) return;
 
             const celebratedSteps = new Set();
+            let finalRevealed = false;
 
             function updateRoadmap() {
                 const roadmapRect = roadmap.getBoundingClientRect();
                 const viewportCenter = window.innerHeight * 0.5;
                 
-                // Calculate fill percentage based on scroll
-                const roadmapTop = roadmapRect.top;
-                const roadmapHeight = roadmapRect.height;
-                const scrollProgress = (viewportCenter - roadmapTop) / roadmapHeight;
-                const fillPercent = Math.max(0, Math.min(100, scrollProgress * 100));
+                // Get last step position to limit fill
+                const lastStep = stepNumbers[stepNumbers.length - 1];
+                const lastStepRect = lastStep.getBoundingClientRect();
+                const lastStepBottom = lastStepRect.bottom - roadmapRect.top;
                 
-                fill.style.height = fillPercent + '%';
+                // Calculate fill in pixels, capped at last step
+                const roadmapTop = roadmapRect.top;
+                const fillHeight = Math.max(0, Math.min(lastStepBottom - 28, viewportCenter - roadmapTop - 28));
+                
+                fill.style.height = fillHeight + 'px';
                 
                 // Update step numbers
                 stepNumbers.forEach((stepNum, index) => {
@@ -1170,10 +1214,24 @@
                             setTimeout(() => {
                                 stepNum.classList.remove('celebrated');
                             }, 600);
+                            
+                            // Trigger final card animation when step 5 is celebrated
+                            if (stepNum_num === 5 && finalCard && !finalRevealed) {
+                                finalRevealed = true;
+                                setTimeout(() => {
+                                    finalCard.classList.add('revealed');
+                                }, 300);
+                            }
                         }
                     } else {
                         stepNum.classList.remove('filled');
                         celebratedSteps.delete(stepNum_num);
+                        
+                        // Reset final card when scrolling back
+                        if (stepNum_num === 5 && finalCard && finalRevealed) {
+                            finalRevealed = false;
+                            finalCard.classList.remove('revealed');
+                        }
                     }
                 });
             }
