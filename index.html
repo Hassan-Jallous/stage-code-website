@@ -103,7 +103,7 @@
             position: absolute;
             left: 27px;
             top: 28px;
-            bottom: 80px;
+            height: calc(100% - 160px);
             width: 4px;
             background: #d4d4c8;
             border-radius: 2px;
@@ -218,15 +218,16 @@
             position: absolute;
             top: 0;
             left: 0;
-            width: 200%;
-            height: 100%;
-            background: linear-gradient(135deg, #45171B 50%, transparent 50%);
-            transform: translateX(-100%);
+            width: 300%;
+            height: 300%;
+            background: #45171B;
+            transform: translateX(-100%) translateY(-50%) rotate(45deg);
+            transform-origin: top left;
             transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
             z-index: 1;
         }
         .final-step-card.revealed::before {
-            transform: translateX(0);
+            transform: translateX(0%) translateY(-50%) rotate(45deg);
         }
         .final-step-card.revealed {
             color: white !important;
