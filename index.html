@@ -347,6 +347,95 @@
             transform: translate(-50%, -50%);
             z-index: 0;
         }
+        
+        /* Footer Star Animation */
+        .footer-star {
+            animation: starFloat 4s ease-in-out infinite, starGlow 3s ease-in-out infinite;
+        }
+        .footer-star path {
+            filter: drop-shadow(0 0 8px rgba(170,174,141,0.6));
+        }
+        @keyframes starFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-5px) rotate(3deg); }
+            50% { transform: translateY(-8px) rotate(0deg); }
+            75% { transform: translateY(-5px) rotate(-3deg); }
+        }
+        @keyframes starGlow {
+            0%, 100% { filter: drop-shadow(0 0 8px rgba(170,174,141,0.4)); }
+            50% { filter: drop-shadow(0 0 20px rgba(170,174,141,0.8)) drop-shadow(0 0 40px rgba(170,174,141,0.4)); }
+        }
+        
+        /* Global Sparkle Particles */
+        .global-sparkles {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 9999;
+            overflow: hidden;
+        }
+        .sparkle-particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: radial-gradient(circle, rgba(170,174,141,0.9) 0%, rgba(170,174,141,0) 70%);
+            border-radius: 50%;
+            opacity: 0;
+            animation: sparkleLife 2.5s ease-in-out forwards;
+        }
+        .sparkle-particle::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 12px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(170,174,141,0.6), transparent);
+            transform: translate(-50%, -50%);
+        }
+        .sparkle-particle::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 2px;
+            height: 12px;
+            background: linear-gradient(180deg, transparent, rgba(170,174,141,0.6), transparent);
+            transform: translate(-50%, -50%);
+        }
+        @keyframes sparkleLife {
+            0% { opacity: 0; transform: scale(0) rotate(0deg); }
+            20% { opacity: 1; transform: scale(1) rotate(45deg); }
+            80% { opacity: 1; transform: scale(1.2) rotate(90deg); }
+            100% { opacity: 0; transform: scale(0) rotate(135deg); }
+        }
+        
+        /* Star-shaped sparkle variant */
+        .sparkle-star {
+            width: 6px;
+            height: 6px;
+            background: none;
+            animation: sparkleStarLife 3s ease-in-out forwards;
+        }
+        .sparkle-star::before,
+        .sparkle-star::after {
+            width: 16px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
+        }
+        .sparkle-star::after {
+            width: 2px;
+            height: 16px;
+            background: linear-gradient(180deg, transparent, rgba(255,255,255,0.8), transparent);
+        }
+        @keyframes sparkleStarLife {
+            0% { opacity: 0; transform: scale(0) rotate(0deg); }
+            15% { opacity: 1; transform: scale(1.2) rotate(20deg); }
+            30% { opacity: 0.7; transform: scale(0.8) rotate(40deg); }
+            50% { opacity: 1; transform: scale(1.5) rotate(60deg); }
+            70% { opacity: 0.7; transform: scale(1) rotate(80deg); }
+            100% { opacity: 0; transform: scale(0) rotate(100deg); }
+        }
         .hero-glow.smooth, .footer-glow.smooth {
             transition: left 0.8s cubic-bezier(0.4, 0, 0.2, 1), top 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -532,6 +621,8 @@
     </style>
 </head>
 <body class="font-sans text-gray-800 bg-cream overflow-x-hidden">
+    <!-- Global Sparkle Container -->
+    <div id="global-sparkles" class="global-sparkles"></div>
 
     <!-- Navigation -->
     <nav class="fixed top-0 w-full z-50 transition-all duration-500" id="navbar">
@@ -1141,7 +1232,7 @@
         </div>
         
         <div class="max-w-3xl mx-auto px-6 text-center relative z-10">
-            <svg class="w-16 h-16 text-moss mx-auto mb-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
+            <svg class="footer-star w-16 h-16 text-moss mx-auto mb-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
             
             <h2 class="font-serif text-3xl md:text-5xl text-white mb-6">Bereit für Entertainment, das wirkt?</h2>
             
@@ -1378,6 +1469,53 @@
             }, { threshold: 0.4 });
 
             stageObserver.observe(founderStage);
+        })();
+
+        // Global Sparkle System
+        (function() {
+            const container = document.getElementById('global-sparkles');
+            if (!container) return;
+
+            function createSparkle() {
+                const sparkle = document.createElement('div');
+                const isStar = Math.random() > 0.6;
+                sparkle.className = isStar ? 'sparkle-particle sparkle-star' : 'sparkle-particle';
+                
+                // Random position across the viewport
+                sparkle.style.left = Math.random() * 100 + 'vw';
+                sparkle.style.top = Math.random() * 100 + 'vh';
+                
+                // Random size variation
+                const size = 3 + Math.random() * 4;
+                sparkle.style.width = size + 'px';
+                sparkle.style.height = size + 'px';
+                
+                // Random animation duration
+                const duration = 2 + Math.random() * 2;
+                sparkle.style.animationDuration = duration + 's';
+                
+                container.appendChild(sparkle);
+                
+                // Remove after animation
+                setTimeout(() => {
+                    sparkle.remove();
+                }, duration * 1000);
+            }
+
+            // Create sparkles at random intervals
+            function scheduleNextSparkle() {
+                const delay = 400 + Math.random() * 800; // 400-1200ms between sparkles
+                setTimeout(() => {
+                    createSparkle();
+                    scheduleNextSparkle();
+                }, delay);
+            }
+
+            // Start with a few sparkles
+            for (let i = 0; i < 3; i++) {
+                setTimeout(createSparkle, i * 300);
+            }
+            scheduleNextSparkle();
         })();
     </script>
 </body>
