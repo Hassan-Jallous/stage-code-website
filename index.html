@@ -103,7 +103,7 @@
             position: absolute;
             left: 27px;
             top: 28px;
-            height: calc(100% - 160px);
+            height: calc(100% - 200px);
             width: 4px;
             background: #d4d4c8;
             border-radius: 2px;
@@ -216,17 +216,15 @@
         .final-step-card::before {
             content: '';
             position: absolute;
-            top: -50%;
-            left: -150%;
-            width: 400%;
-            height: 400%;
-            background: #45171B;
-            transform: rotate(45deg) translateX(-100%);
-            transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+            inset: 0;
+            background: linear-gradient(115deg, #45171B 0%, #45171B 50%, transparent 50%, transparent 100%);
+            background-size: 250% 100%;
+            background-position: 100% 0;
+            transition: background-position 1s cubic-bezier(0.4, 0, 0.2, 1);
             z-index: 1;
         }
         .final-step-card.revealed::before {
-            transform: rotate(45deg) translateX(-25%);
+            background-position: 0% 0;
         }
         .final-step-card.revealed {
             color: white !important;
