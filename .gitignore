@@ -1,0 +1,18 @@
+# Large files
+*.zip
+*.mov
+*.MOV
+*.mp4
+*.MP4
+*.HEIC
+*.heic
+
+# Keep images but ignore originals (we use avif)
+images/*.JPG
+images/*.jpg
+images/*.png
+images/*.PNG
+images/*.WEBP
+images/*.webp
+
+# Keep html file
