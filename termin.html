@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Erstgespräch buchen | Stage Code</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        burgundy: '#45171B',
+                        moss: '#AAAE8D',
+                        cream: '#F5F3F0',
+                    },
+                    fontFamily: {
+                        serif: ['Cormorant Garamond', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .calendly-inline-widget {
+            min-width: 320px;
+            height: 810px;
+        }
+        @media (min-width: 768px) {
+            .calendly-inline-widget {
+                height: calc(100vh - 200px);
+            }
+        }
+    </style>
+</head>
+<body class="bg-cream font-sans text-gray-700">
+
+    <!-- Navigation (loaded from components.js) -->
+    <div id="navbar-placeholder"></div>
+
+    <!-- Content -->
+    <main class="px-6 pt-24 pb-8">
+        <div class="text-center mb-8">
+            <h1 class="text-4xl md:text-5xl font-serif font-bold text-burgundy mb-4">Erstgespräch buchen</h1>
+            <p class="text-gray-500 max-w-xl mx-auto">Wähle einen passenden Termin für deine unverbindliche Eventanalyse. Wir besprechen dein Event und finden das perfekte Entertainment-Konzept.</p>
+        </div>
+
+        <!-- Calendly Inline Widget -->
+        <div class="calendly-inline-widget" data-url="https://calendly.com/k-chaudron-stage-code/30min"></div>
+    </main>
+
+    <!-- Footer (loaded from components.js) -->
+    <div id="footer-placeholder"></div>
+
+    <script src="components.js"></script>
+    <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+
+</body>
+</html>
