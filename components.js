@@ -47,7 +47,7 @@
         return `<nav class="fixed top-0 w-full z-50 bg-burgundy/95 backdrop-blur-lg shadow-lg" id="navbar">
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
         <div class="flex justify-between items-center h-20">
-            <a href="${prefix || 'index.html'}" class="no-underline"><img src="${prefix}images/logo-white.webp" alt="Stage Code" class="h-12 md:h-16"></a>
+            <a href="${prefix || 'index.html'}" class="no-underline"><img src="images/logo-white.webp" alt="Stage Code" class="h-12 md:h-16"></a>
             <div class="hidden md:flex items-center space-x-8">
                 <a href="${prefix}#problem" class="text-white/80 hover:text-moss transition-colors text-sm uppercase tracking-widest">Problem</a>
                 <a href="${prefix}#leistungen" class="text-white/80 hover:text-moss transition-colors text-sm uppercase tracking-widest">Lösung</a>
@@ -67,7 +67,7 @@
     <div class="md:hidden fixed top-0 left-0 right-0 z-50 transform -translate-y-full transition-transform duration-500 ease-out" id="mobile-menu">
         <div class="bg-burgundy/95 backdrop-blur-xl border-b border-white/10 shadow-2xl">
             <div class="flex justify-between items-center px-6 h-20 border-b border-white/10">
-                <div><img src="${prefix}images/logo-white.webp" alt="Stage Code" class="h-12"></div>
+                <div><img src="images/logo-white.webp" alt="Stage Code" class="h-12"></div>
                 <button class="text-white/80 hover:text-white transition-colors p-2" id="mobile-menu-close">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
                 </button>
@@ -106,7 +106,7 @@
         return `<footer class="bg-burgundy border-t border-white/10 py-12">
     <div class="max-w-7xl mx-auto px-6">
         <div class="flex flex-col md:flex-row justify-between items-center gap-6">
-            <div><img src="${prefix}images/logo-white.webp" alt="Stage Code" class="h-12"></div>
+            <div><img src="images/logo-white.webp" alt="Stage Code" class="h-12"></div>
             <div class="text-white/50 text-sm">Entertainment, das wirkt.</div>
 
             <!-- Social Links -->
