@@ -1,7 +1,7 @@
 (function () {
     const path = window.location.pathname;
-    const isHome = path === '/' || path.endsWith('/index.html') || (path.endsWith('/') && !path.includes('.html'));
-    const prefix = isHome ? '' : 'index.html';
+    const isHome = path === '/' || path.endsWith('/index.html') || path.endsWith('/index') || (path.endsWith('/') && !path.includes('.html'));
+    const prefix = isHome ? '' : 'index';
 
     // Inject navbar CSS
     const style = document.createElement('style');
@@ -47,12 +47,12 @@
         return `<nav class="fixed top-0 w-full z-50 bg-burgundy/95 backdrop-blur-lg shadow-lg" id="navbar">
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
         <div class="flex justify-between items-center h-20">
-            <a href="${prefix || 'index.html'}" class="no-underline"><img src="images/logo-white.webp" alt="Stage Code" class="h-12 md:h-16"></a>
+            <a href="${prefix || 'index'}" class="no-underline"><img src="images/logo-white.webp" alt="Stage Code" class="h-12 md:h-16"></a>
             <div class="hidden md:flex items-center space-x-8">
                 <a href="${prefix}#problem" class="text-white/80 hover:text-moss transition-colors text-sm uppercase tracking-widest">Problem</a>
                 <a href="${prefix}#leistungen" class="text-white/80 hover:text-moss transition-colors text-sm uppercase tracking-widest">Lösung</a>
                 <a href="${prefix}#prozess" class="text-white/80 hover:text-moss transition-colors text-sm uppercase tracking-widest">Methode</a>
-                <a href="termin.html" class="bg-moss text-burgundy px-6 py-2.5 rounded-full text-sm font-medium hover:bg-white transition-all duration-300">Analyse buchen</a>
+                <a href="termin" class="bg-moss text-burgundy px-6 py-2.5 rounded-full text-sm font-medium hover:bg-white transition-all duration-300">Analyse buchen</a>
             </div>
             <button class="md:hidden text-white" id="mobile-menu-btn">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
@@ -92,7 +92,7 @@
                     </span>
                 </a>
                 <div class="pt-4 mt-4 border-t border-white/10">
-                    <a href="termin.html" class="mobile-nav-link block bg-moss text-burgundy py-4 px-6 rounded-xl text-center font-semibold text-lg hover:bg-white transition-all duration-300" style="animation-delay: 0.4s">
+                    <a href="termin" class="mobile-nav-link block bg-moss text-burgundy py-4 px-6 rounded-xl text-center font-semibold text-lg hover:bg-white transition-all duration-300" style="animation-delay: 0.4s">
                         Analyse buchen
                     </a>
                 </div>
@@ -123,9 +123,9 @@
             </div>
 
             <div class="flex items-center gap-6 text-sm text-white/60">
-                <a href="impressum.html" class="hover:text-white transition-colors">Impressum</a>
-                <a href="datenschutz.html" class="hover:text-white transition-colors">Datenschutz</a>
-                <a href="agb.html" class="hover:text-white transition-colors">AGB</a>
+                <a href="impressum" class="hover:text-white transition-colors">Impressum</a>
+                <a href="datenschutz" class="hover:text-white transition-colors">Datenschutz</a>
+                <a href="agb" class="hover:text-white transition-colors">AGB</a>
             </div>
 
             <div class="text-white/30 text-xs">&copy; 2026 Stage Code. Alle Rechte vorbehalten.</div>
