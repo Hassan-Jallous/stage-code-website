@@ -44,15 +44,15 @@
     document.head.appendChild(style);
 
     function getNavbarHTML() {
-        return `<nav class="fixed top-0 w-full z-50 transition-all duration-500" id="navbar">
+        return `<nav class="fixed top-0 w-full z-50 bg-burgundy/95 backdrop-blur-lg shadow-lg" id="navbar">
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
         <div class="flex justify-between items-center h-20">
-            <a href="${prefix || 'index.html'}" class="text-2xl font-serif font-bold text-white tracking-wider no-underline">STAGE CODE</a>
+            <a href="${prefix || 'index.html'}" class="no-underline"><img src="${prefix}images/logo-white.webp" alt="Stage Code" class="h-12 md:h-16"></a>
             <div class="hidden md:flex items-center space-x-8">
                 <a href="${prefix}#problem" class="text-white/80 hover:text-moss transition-colors text-sm uppercase tracking-widest">Problem</a>
                 <a href="${prefix}#leistungen" class="text-white/80 hover:text-moss transition-colors text-sm uppercase tracking-widest">Lösung</a>
                 <a href="${prefix}#prozess" class="text-white/80 hover:text-moss transition-colors text-sm uppercase tracking-widest">Methode</a>
-                <a href="${prefix}#kontakt" class="bg-moss text-burgundy px-6 py-2.5 rounded-full text-sm font-medium hover:bg-white transition-all duration-300">Analyse buchen</a>
+                <a href="termin.html" class="bg-moss text-burgundy px-6 py-2.5 rounded-full text-sm font-medium hover:bg-white transition-all duration-300">Analyse buchen</a>
             </div>
             <button class="md:hidden text-white" id="mobile-menu-btn">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
@@ -67,7 +67,7 @@
     <div class="md:hidden fixed top-0 left-0 right-0 z-50 transform -translate-y-full transition-transform duration-500 ease-out" id="mobile-menu">
         <div class="bg-burgundy/95 backdrop-blur-xl border-b border-white/10 shadow-2xl">
             <div class="flex justify-between items-center px-6 h-20 border-b border-white/10">
-                <div class="text-2xl font-serif font-bold text-white tracking-wider">STAGE CODE</div>
+                <div><img src="${prefix}images/logo-white.webp" alt="Stage Code" class="h-12"></div>
                 <button class="text-white/80 hover:text-white transition-colors p-2" id="mobile-menu-close">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
                 </button>
@@ -92,7 +92,7 @@
                     </span>
                 </a>
                 <div class="pt-4 mt-4 border-t border-white/10">
-                    <a href="${prefix}#kontakt" class="mobile-nav-link block bg-moss text-burgundy py-4 px-6 rounded-xl text-center font-semibold text-lg hover:bg-white transition-all duration-300" style="animation-delay: 0.4s">
+                    <a href="termin.html" class="mobile-nav-link block bg-moss text-burgundy py-4 px-6 rounded-xl text-center font-semibold text-lg hover:bg-white transition-all duration-300" style="animation-delay: 0.4s">
                         Analyse buchen
                     </a>
                 </div>
@@ -106,7 +106,7 @@
         return `<footer class="bg-burgundy border-t border-white/10 py-12">
     <div class="max-w-7xl mx-auto px-6">
         <div class="flex flex-col md:flex-row justify-between items-center gap-6">
-            <div class="text-2xl font-serif font-bold text-white tracking-wide">STAGE CODE</div>
+            <div><img src="${prefix}images/logo-white.webp" alt="Stage Code" class="h-12"></div>
             <div class="text-white/50 text-sm">Entertainment, das wirkt.</div>
 
             <!-- Social Links -->
@@ -141,14 +141,6 @@
         const mobileMenu = document.getElementById('mobile-menu');
         const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
 
-        // Scroll effect
-        window.addEventListener('scroll', function () {
-            if (window.scrollY > 100) {
-                navbar.classList.add('bg-burgundy/95', 'backdrop-blur-lg', 'shadow-lg');
-            } else {
-                navbar.classList.remove('bg-burgundy/95', 'backdrop-blur-lg', 'shadow-lg');
-            }
-        });
 
         // Mobile menu open
         if (mobileMenuBtn) {
