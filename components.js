@@ -1,7 +1,7 @@
 (function () {
     const path = window.location.pathname;
     const isHome = path === '/' || path.endsWith('/index.html') || path.endsWith('/index') || (path.endsWith('/') && !path.includes('.html'));
-    const prefix = isHome ? '' : 'index';
+    const prefix = isHome ? '' : '/';
 
     // Inject navbar CSS
     const style = document.createElement('style');
@@ -47,7 +47,7 @@
         return `<nav class="fixed top-0 w-full z-50 bg-burgundy/95 backdrop-blur-lg shadow-lg" id="navbar">
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
         <div class="flex justify-between items-center h-20">
-            <a href="${prefix || 'index'}" class="no-underline"><img src="images/logo-white.webp" alt="Stage Code" class="h-12 md:h-16"></a>
+            <a href="/" class="no-underline"><img src="images/logo-white.webp" alt="Stage Code" class="h-12 md:h-16"></a>
             <div class="hidden md:flex items-center space-x-8">
                 <a href="${prefix}#problem" class="text-white/80 hover:text-moss transition-colors text-sm uppercase tracking-widest">Problem</a>
                 <a href="${prefix}#leistungen" class="text-white/80 hover:text-moss transition-colors text-sm uppercase tracking-widest">Lösung</a>

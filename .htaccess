@@ -1,0 +1,22 @@
+# Force index.html as default
+DirectoryIndex index.html
+
+RewriteEngine On
+RewriteBase /
+
+# Clean URLs: /pagename -> pagename.html
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([^.]+)$ $1.html [L]
+
+# Disable LiteSpeed Cache for HTML
+<IfModule LiteSpeed>
+CacheLookup off
+</IfModule>
+
+# No-cache for HTML files
+<IfModule mod_headers.c>
+<FilesMatch "\.html$">
+Header set Cache-Control "no-cache, must-revalidate"
+</FilesMatch>
+</IfModule>

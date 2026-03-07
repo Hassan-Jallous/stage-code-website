@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="de" class="scroll-smooth">
 <head>
+    <link rel="icon" type="image/jpeg" href="images/favicon.jpg">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stage Code | Entertainment, das wirkt</title>
@@ -26,6 +27,52 @@
         }
     </script>
     <style>
+        /* Logo Marquee */
+        .marquee-wrapper {
+            position: relative;
+            width: 100%;
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        }
+        .marquee-track {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+            width: max-content;
+            animation: marquee-scroll 35s linear infinite;
+        }
+        .marquee-logo {
+            height: 36px;
+            width: auto;
+            object-fit: contain;
+            opacity: 0.6;
+            filter: grayscale(100%);
+            transition: opacity 0.3s, filter 0.3s;
+            flex-shrink: 0;
+        }
+        .marquee-logo:hover {
+            opacity: 1;
+            filter: grayscale(0%);
+        }
+        .marquee-logo-invert {
+            filter: grayscale(100%) invert(1);
+        }
+        .marquee-logo-invert:hover {
+            filter: grayscale(0%) invert(1);
+        }
+        @keyframes marquee-scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .marquee-logo-md { height: 50px; }
+        .marquee-logo-lg { height: 64px; }
+        @media (min-width: 768px) {
+            .marquee-logo { height: 44px; }
+            .marquee-logo-md { height: 58px; }
+            .marquee-logo-lg { height: 72px; }
+            .marquee-track { gap: 4rem; }
+        }
+
         .text-shadow {
             text-shadow: 0 2px 30px rgba(0,0,0,0.5);
         }
@@ -719,6 +766,38 @@
         </div>
     </section>
 
+    <!-- Logo Marquee Section -->
+    <section class="py-10 md:py-14 bg-cream overflow-hidden">
+        <p class="text-center text-sm uppercase tracking-[0.2em] text-burgundy/50 font-sans mb-8">Vertraut von führenden Marken</p>
+        <div class="marquee-wrapper">
+            <div class="marquee-track">
+                <img src="images/logos/logo-01.webp" alt="ParookaVille" class="marquee-logo" loading="lazy">
+                <img src="images/logos/logo-02.webp" alt="L'Oréal" class="marquee-logo" loading="lazy">
+                <img src="images/logos/logo-03.svg" alt="Superplastic" class="marquee-logo marquee-logo-md" loading="lazy">
+                <img src="images/logos/logo-04.webp" alt="Red Bull" class="marquee-logo" loading="lazy">
+                <img src="images/logos/logo-05.webp" alt="Hapag-Lloyd" class="marquee-logo" loading="lazy">
+                <img src="images/logos/logo-06.webp" alt="Campari" class="marquee-logo" loading="lazy">
+                <img src="images/logos/logo-07.webp" alt="Eurowings" class="marquee-logo" loading="lazy">
+                <img src="images/logos/logo-08.webp" alt="Culcha Candela" class="marquee-logo marquee-logo-md" loading="lazy">
+                <img src="images/logos/logo-09.webp" alt="Restaurant Bellucci" class="marquee-logo marquee-logo-invert" loading="lazy">
+                <img src="images/logos/logo-10.webp" alt="Anex Tour" class="marquee-logo" loading="lazy">
+                <img src="images/logos/logo-11.webp" alt="San Hejmo Festival" class="marquee-logo marquee-logo-lg" loading="lazy">
+                <!-- Duplicate set for seamless loop -->
+                <img src="images/logos/logo-01.webp" alt="ParookaVille" class="marquee-logo" loading="lazy">
+                <img src="images/logos/logo-02.webp" alt="L'Oréal" class="marquee-logo" loading="lazy">
+                <img src="images/logos/logo-03.svg" alt="Superplastic" class="marquee-logo marquee-logo-md" loading="lazy">
+                <img src="images/logos/logo-04.webp" alt="Red Bull" class="marquee-logo" loading="lazy">
+                <img src="images/logos/logo-05.webp" alt="Hapag-Lloyd" class="marquee-logo" loading="lazy">
+                <img src="images/logos/logo-06.webp" alt="Campari" class="marquee-logo" loading="lazy">
+                <img src="images/logos/logo-07.webp" alt="Eurowings" class="marquee-logo" loading="lazy">
+                <img src="images/logos/logo-08.webp" alt="Culcha Candela" class="marquee-logo marquee-logo-md" loading="lazy">
+                <img src="images/logos/logo-09.webp" alt="Restaurant Bellucci" class="marquee-logo marquee-logo-invert" loading="lazy">
+                <img src="images/logos/logo-10.webp" alt="Anex Tour" class="marquee-logo" loading="lazy">
+                <img src="images/logos/logo-11.webp" alt="San Hejmo Festival" class="marquee-logo marquee-logo-lg" loading="lazy">
+            </div>
+        </div>
+    </section>
+
     <!-- Problem Section with Visual -->
     <section id="problem" class="py-16 md:py-32 bg-white relative overflow-hidden">
         <div class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-burgundy/5 to-transparent"></div>
@@ -893,7 +972,7 @@
                         </div>
                         
                         <div class="relative h-64 lg:h-auto order-1 lg:order-2 image-hover">
-                            <img src="images/kuenstler-walking-acts.avif" alt="Künstler & Walking Acts" class="absolute inset-0 w-full h-full object-cover object-bottom rounded-r-2xl lg:rounded-r-2xl rounded-t-2xl lg:rounded-t-none">
+                            <img src="images/kuenstler-walking-acts.avif" alt="Künstler & Walking Acts" loading="lazy" class="absolute inset-0 w-full h-full object-cover object-bottom rounded-r-2xl lg:rounded-r-2xl rounded-t-2xl lg:rounded-t-none">
                         </div>
                     </div>
                 </div>
@@ -902,7 +981,7 @@
                 <div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 fade-up">
                     <div class="grid lg:grid-cols-2">
                         <div class="relative h-64 lg:h-auto order-first lg:order-1 image-hover">
-                            <img src="images/show-inszenierung.avif" alt="Show & Inszenierung" class="absolute inset-0 w-full h-full object-cover object-center rounded-l-2xl lg:rounded-l-2xl rounded-t-2xl lg:rounded-t-none">
+                            <img src="images/show-inszenierung.avif" alt="Show & Inszenierung" loading="lazy" class="absolute inset-0 w-full h-full object-cover object-center rounded-l-2xl lg:rounded-l-2xl rounded-t-2xl lg:rounded-t-none">
                         </div>
                         
                         <div class="p-10 lg:p-14 flex flex-col justify-center order-last lg:order-2">
@@ -954,7 +1033,7 @@
                         </div>
                         
                         <div class="relative h-64 lg:h-auto order-1 lg:order-2 image-hover">
-                            <img src="images/betreuung-umsetzung.avif" alt="Betreuung & Umsetzung" class="absolute inset-0 w-full h-full object-cover object-center rounded-r-2xl lg:rounded-r-2xl rounded-t-2xl lg:rounded-t-none">
+                            <img src="images/betreuung-umsetzung.avif" alt="Betreuung & Umsetzung" loading="lazy" class="absolute inset-0 w-full h-full object-cover object-center rounded-r-2xl lg:rounded-r-2xl rounded-t-2xl lg:rounded-t-none">
                         </div>
                     </div>
                 </div>
@@ -1255,7 +1334,7 @@
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
             </a>
             
-            <p class="text-white/40 text-sm mt-8">Oder schreib uns direkt an: <a href="mailto:kontakt@stagecode.de" class="text-moss hover:text-white transition-colors">kontakt@stagecode.de</a></p>
+            <p class="text-white/40 text-sm mt-8">Oder schreib uns direkt an: <a href="mailto:kontakt@stage-code.com" class="text-moss hover:text-white transition-colors">kontakt@stage-code.com</a></p>
         </div>
     </section>
 
