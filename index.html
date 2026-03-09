@@ -101,6 +101,11 @@
             pointer-events: none;
             z-index: 1;
         }
+        .sparkles-disabled .global-sparkles,
+        .sparkles-disabled .sparkle,
+        .sparkles-disabled .step-sparkle {
+            display: none !important;
+        }
         .video-container {
             position: relative;
             width: 100%;
@@ -776,7 +781,7 @@
         }
     </style>
 </head>
-<body class="font-sans text-gray-800 bg-cream overflow-x-hidden">
+<body class="font-sans text-gray-800 bg-cream overflow-x-hidden sparkles-disabled">
     <!-- Global Sparkle Container -->
     <div id="global-sparkles" class="global-sparkles"></div>
 
@@ -1656,7 +1661,7 @@
         // Global Sparkle System
         (function() {
             const container = document.getElementById('global-sparkles');
-            if (!container) return;
+            if (!container || document.body.classList.contains('sparkles-disabled')) return;
 
             function createSparkle() {
                 const sparkle = document.createElement('div');
