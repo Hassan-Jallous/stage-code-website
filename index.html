@@ -686,6 +686,81 @@
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-10px); }
         }
+
+        .testimonial-media-card {
+            position: relative;
+            overflow: hidden;
+            min-height: 420px;
+        }
+        .testimonial-media-shell {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            min-height: 420px;
+            border-radius: 1rem;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.04);
+        }
+        .testimonial-media-shell::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(180deg, rgba(35, 9, 12, 0.08) 0%, rgba(35, 9, 12, 0.55) 100%),
+                radial-gradient(circle at top, rgba(170, 174, 141, 0.18), transparent 48%);
+            pointer-events: none;
+        }
+        .testimonial-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .testimonial-video-caption {
+            position: absolute;
+            left: 1.25rem;
+            right: 1.25rem;
+            bottom: 1.25rem;
+            z-index: 1;
+        }
+        .testimonial-video-kicker {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.35rem 0.75rem;
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            border-radius: 9999px;
+            background: rgba(35, 9, 12, 0.45);
+            backdrop-filter: blur(12px);
+            color: rgba(255, 255, 255, 0.92);
+            font-size: 0.72rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+        }
+        .testimonial-video-kicker::before {
+            content: "";
+            width: 0.45rem;
+            height: 0.45rem;
+            border-radius: 9999px;
+            background: #aaae8d;
+            box-shadow: 0 0 10px rgba(170, 174, 141, 0.7);
+        }
+        .testimonial-video-title {
+            margin-top: 0.85rem;
+            color: rgba(255, 255, 255, 0.96);
+            font-size: 1.4rem;
+            line-height: 1.25;
+            font-style: italic;
+        }
+        @media (max-width: 767px) {
+            .testimonial-media-card,
+            .testimonial-media-shell {
+                min-height: 320px;
+            }
+            .testimonial-video-title {
+                font-size: 1.12rem;
+            }
+        }
         
         /* Breathing line animation */
         .line-breathe {
@@ -1230,16 +1305,23 @@
                     </div>
                 </div>
                 
-                <div class="bg-white/5 backdrop-blur-sm p-8 rounded-2xl border border-moss/20 hover:border-moss/40 transition-colors">
-                    <svg class="w-10 h-10 text-moss/40 mb-6 quote-float-delay-1" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
-                    <p class="text-white/90 text-lg italic leading-relaxed mb-6">„Die Zusammenarbeit war super entspannt – wir mussten uns um nichts kümmern."</p>
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-moss/20 flex items-center justify-center">
-                            <span class="text-moss font-medium">E</span>
-                        </div>
-                        <div>
-                            <p class="text-white font-medium text-sm">Eventagentur</p>
-                            <p class="text-white/50 text-xs">Berlin</p>
+                <div class="bg-white/5 backdrop-blur-sm p-3 rounded-2xl border border-moss/20 hover:border-moss/40 transition-colors testimonial-media-card">
+                    <div class="testimonial-media-shell">
+                        <video
+                            class="testimonial-video"
+                            id="testimonial-video"
+                            autoplay
+                            muted
+                            loop
+                            playsinline
+                            preload="none"
+                            aria-label="Macallan Event Highlight Reel"
+                        >
+                            <source data-src="videos/macallan-testimonial-loop.mp4" type="video/mp4">
+                        </video>
+                        <div class="testimonial-video-caption">
+                            <span class="testimonial-video-kicker">Macallan Event</span>
+                            <p class="testimonial-video-title">„Ein Blick in die Atmosphäre, die vor Ort entsteht."</p>
                         </div>
                     </div>
                 </div>
@@ -1528,6 +1610,36 @@
             }, { threshold: 0.4 });
 
             stageObserver.observe(founderStage);
+        })();
+
+        // Lazy-load testimonial video when the card is near viewport
+        (function() {
+            const video = document.getElementById('testimonial-video');
+            if (!video) return;
+
+            const source = video.querySelector('source[data-src]');
+            if (!source) return;
+
+            function loadVideo() {
+                if (source.src) return;
+                source.src = source.dataset.src;
+                video.load();
+                const playPromise = video.play();
+                if (playPromise && typeof playPromise.catch === 'function') {
+                    playPromise.catch(() => {});
+                }
+            }
+
+            const videoObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        loadVideo();
+                        videoObserver.unobserve(entry.target);
+                    }
+                });
+            }, { rootMargin: '160px 0px', threshold: 0.15 });
+
+            videoObserver.observe(video);
         })();
 
         // Global Sparkle System
