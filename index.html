@@ -1291,16 +1291,22 @@
         
         <div class="max-w-6xl mx-auto px-6 relative z-10">
             <div class="grid md:grid-cols-3 gap-8">
-                <div class="bg-white/5 backdrop-blur-sm p-8 rounded-2xl border border-moss/20 hover:border-moss/40 transition-colors">
-                    <svg class="w-10 h-10 text-moss/40 mb-6 quote-float" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
-                    <p class="text-white/90 text-lg italic leading-relaxed mb-6">„Endlich Entertainment, das wirklich zu unserem Event gepasst hat."</p>
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-moss/20 flex items-center justify-center">
-                            <span class="text-moss font-medium">M</span>
-                        </div>
-                        <div>
-                            <p class="text-white font-medium text-sm">Marketing Manager</p>
-                            <p class="text-white/50 text-xs">Internationale Brand</p>
+                <div class="bg-white/5 backdrop-blur-sm p-3 rounded-2xl border border-moss/20 hover:border-moss/40 transition-colors testimonial-media-card">
+                    <div class="testimonial-media-shell">
+                        <video
+                            class="testimonial-video lazy-testimonial-video"
+                            autoplay
+                            muted
+                            loop
+                            playsinline
+                            preload="none"
+                            aria-label="Satisfyer Event Highlight Reel"
+                        >
+                            <source data-src="videos/satisfyer-testimonial-loop.mp4" type="video/mp4">
+                        </video>
+                        <div class="testimonial-video-caption">
+                            <span class="testimonial-video-kicker">Satisfyer Party</span>
+                            <p class="testimonial-video-title">„Ein kurzer Moment aus der Energie dieses Abends."</p>
                         </div>
                     </div>
                 </div>
@@ -1308,8 +1314,7 @@
                 <div class="bg-white/5 backdrop-blur-sm p-3 rounded-2xl border border-moss/20 hover:border-moss/40 transition-colors testimonial-media-card">
                     <div class="testimonial-media-shell">
                         <video
-                            class="testimonial-video"
-                            id="testimonial-video"
+                            class="testimonial-video lazy-testimonial-video"
                             autoplay
                             muted
                             loop
@@ -1326,16 +1331,22 @@
                     </div>
                 </div>
                 
-                <div class="bg-white/5 backdrop-blur-sm p-8 rounded-2xl border border-moss/20 hover:border-moss/40 transition-colors">
-                    <svg class="w-10 h-10 text-moss/40 mb-6 quote-float-delay-2" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
-                    <p class="text-white/90 text-lg italic leading-relaxed mb-6">„Sehr professionell, sehr gut organisiert – auf und hinter der Bühne."</p>
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-moss/20 flex items-center justify-center">
-                            <span class="text-moss font-medium">B</span>
-                        </div>
-                        <div>
-                            <p class="text-white font-medium text-sm">Brand Event Lead</p>
-                            <p class="text-white/50 text-xs">Großkonzern</p>
+                <div class="bg-white/5 backdrop-blur-sm p-3 rounded-2xl border border-moss/20 hover:border-moss/40 transition-colors testimonial-media-card">
+                    <div class="testimonial-media-shell">
+                        <video
+                            class="testimonial-video lazy-testimonial-video"
+                            autoplay
+                            muted
+                            loop
+                            playsinline
+                            preload="none"
+                            aria-label="Satisfyer Event Closing Highlight Reel"
+                        >
+                            <source data-src="videos/satisfyer-testimonial-loop-right.mp4" type="video/mp4">
+                        </video>
+                        <div class="testimonial-video-caption">
+                            <span class="testimonial-video-kicker">Finale Moment</span>
+                            <p class="testimonial-video-title">„Noch ein Moment, der zeigt, wie dicht Stimmung und Inszenierung zusammenkommen."</p>
                         </div>
                     </div>
                 </div>
@@ -1612,16 +1623,14 @@
             stageObserver.observe(founderStage);
         })();
 
-        // Lazy-load testimonial video when the card is near viewport
+        // Lazy-load testimonial videos when the cards are near viewport
         (function() {
-            const video = document.getElementById('testimonial-video');
-            if (!video) return;
+            const videos = document.querySelectorAll('.lazy-testimonial-video');
+            if (!videos.length) return;
 
-            const source = video.querySelector('source[data-src]');
-            if (!source) return;
-
-            function loadVideo() {
-                if (source.src) return;
+            function loadVideo(video) {
+                const source = video.querySelector('source[data-src]');
+                if (!source || source.src) return;
                 source.src = source.dataset.src;
                 video.load();
                 const playPromise = video.play();
@@ -1633,13 +1642,15 @@
             const videoObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        loadVideo();
+                        loadVideo(entry.target);
                         videoObserver.unobserve(entry.target);
                     }
                 });
             }, { rootMargin: '160px 0px', threshold: 0.15 });
 
-            videoObserver.observe(video);
+            videos.forEach(video => {
+                videoObserver.observe(video);
+            });
         })();
 
         // Global Sparkle System
